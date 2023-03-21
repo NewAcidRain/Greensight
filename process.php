@@ -38,9 +38,13 @@ if ($_POST['password'] != $_POST['repeatPassword']) {
 if (!empty($errors)) {
     $data['success'] = false;
     $data['errors'] = $errors;
+    $log = "ERROR: " . date('Y-m-d H:i:s') . ' ' . print_r($data['errors'],true);
+    file_put_contents(__DIR__ . '/log.txt',$log,FILE_APPEND | LOCK_EX);
 } else {
     $data['success'] = true;
     $data['message'] = 'Success!';
+    $log = "SUCCESS: " . date('Y-m-d H:i:s') . ' ' . print_r($data['success'],true);
+    file_put_contents(__DIR__ . '/log.txt',$log,FILE_APPEND | LOCK_EX);
 }
 
 echo json_encode($data);
